@@ -82,10 +82,10 @@
                 <div class="pull-right">
                     <div class="btn-group">
                         @if ($prevUrl)
-                        <a href="{{ $prevUrl }}" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></a>
+                            <a href="{{ $prevUrl }}" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></a>
                         @endif
                         @if ($nextUrl)
-                        <a href="{{ $nextUrl }}" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></a>
+                            <a href="{{ $nextUrl }}" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></a>
                         @endif
                     </div>
                     <!-- /.btn-group -->
@@ -99,13 +99,13 @@
                     <table class="table table-hover">
 
                         <thead>
-                            <tr>
-                                <th>Level</th>
-                                <th>Env</th>
-                                <th>Time</th>
-                                <th>Message</th>
-                                <th></th>
-                            </tr>
+                        <tr>
+                            <th>Level</th>
+                            <th>Env</th>
+                            <th>Time</th>
+                            <th>Message</th>
+                            <th></th>
+                        </tr>
                         </thead>
 
                         <tbody>
@@ -119,15 +119,15 @@
                                 <td><code style="word-break: break-all;">{{ $log['info'] }}</code></td>
                                 <td>
                                     @if(!empty($log['trace']))
-                                    <a class="btn btn-primary btn-xs" data-toggle="collapse" data-target=".trace-{{$index}}"><i class="fa fa-info"></i>&nbsp;&nbsp;Exception</a>
+                                        <a class="btn btn-primary btn-xs" data-toggle="collapse" data-target=".trace-{{$index}}"><i class="fa fa-info"></i>&nbsp;&nbsp;Exception</a>
                                     @endif
                                 </td>
                             </tr>
 
                             @if (!empty($log['trace']))
-                            <tr class="collapse trace-{{$index}}">
-                                <td colspan="5"><div style="white-space: pre-wrap;background: #333;color: #fff; padding: 10px;">{{ $log['trace'] }}</div></td>
-                            </tr>
+                                <tr class="collapse trace-{{$index}}">
+                                    <td colspan="5"><div style="white-space: pre-wrap;background: #333;color: #fff; padding: 10px;">{{ $log['trace'] }}</div></td>
+                                </tr>
                             @endif
 
                         @endforeach
@@ -172,6 +172,9 @@
                     </li>
                     <li class="margin: 10px;">
                         <a>Updated at: {{ date('Y-m-d H:i:s', filectime($filePath)) }}</a>
+                    </li>
+                    <li class="margin: 10px;">
+                        <a href="{{ route('log-viewer-download', ['file' => $fileName]) }}" target="_blank">Download: {{$fileName}} <i class="fa fa-download"></i></a>
                     </li>
                 </ul>
             </div>

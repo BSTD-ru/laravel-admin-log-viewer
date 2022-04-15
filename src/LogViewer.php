@@ -169,6 +169,11 @@ class LogViewer extends Extension
      */
     public function fetch($seek = 0, $lines = 20, $buffer = 4096)
     {
+        if (!file_exists($this->filePath) || is_dir($this->filePath)) {
+            $this->pageOffset = ['start' => 0, 'end' => 0];
+
+            return $this->parseLog('');
+        }
         $f = fopen($this->filePath, 'rb');
 
         if ($seek) {
@@ -267,6 +272,24 @@ class LogViewer extends Extension
         }
 
         return [$pos, $logs];
+    }
+
+    /**
+     * Get tail logs in log file.
+     *
+     * @param int $seek
+     *
+     * @return array
+     */
+    public function download()
+    {
+        header($_SERVER["SERVER_PROTOCOL"] . " 200 OK");
+        header("Content-Type: application/octet-stream");
+        header("Content-Transfer-Encoding: Binary");
+        header("Content-Length:" . filesize($this->filePath));
+        header("Content-Disposition: attachment; filename=" . $this->file);
+        readfile($this->filePath);
+        exit;
     }
 
     /**

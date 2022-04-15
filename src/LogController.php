@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller;
 
 class LogController extends Controller
 {
-    public function index($file = null, Request $request)
+    public function index(Request $request, $file = null)
     {
         if ($file === null) {
             $file = (new LogViewer())->getLastModifiedLog();
@@ -36,7 +36,7 @@ class LogController extends Controller
         });
     }
 
-    public function tail($file, Request $request)
+    public function tail(Request $request, $file)
     {
         $offset = $request->get('offset');
 
@@ -45,6 +45,13 @@ class LogController extends Controller
         list($pos, $logs) = $viewer->tail($offset);
 
         return compact('pos', 'logs');
+    }
+
+    public function download(Request $request, $file)
+    {
+        $viewer = new LogViewer($file);
+
+        return $viewer->download();
     }
 
     protected static function bytesToHuman($bytes)

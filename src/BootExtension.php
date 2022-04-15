@@ -28,6 +28,7 @@ trait BootExtension
             $router->get('logs', 'Encore\Admin\LogViewer\LogController@index')->name('log-viewer-index');
             $router->get('logs/{file}', 'Encore\Admin\LogViewer\LogController@index')->name('log-viewer-file');
             $router->get('logs/{file}/tail', 'Encore\Admin\LogViewer\LogController@tail')->name('log-viewer-tail');
+            $router->get('logs/{file}/download', 'Encore\Admin\LogViewer\LogController@download')->name('log-viewer-download');
         });
     }
 
